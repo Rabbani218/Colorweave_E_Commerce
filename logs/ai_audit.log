@@ -109,3 +109,10 @@ chat | {'msg': 'aaaaa', 'suggestions': [1, 2, 3, 6, 7]}
 chat | {'msg': 'halo', 'suggestions': [], 'intent': 'greeting'}
 chat | {'msg': 'mau cari gelang biru yang elegan', 'suggestions': [1, 2, 3, 6, 7]}
 chat | {'msg': 'ceritakan tentang ColorWeave', 'suggestions': [1, 2, 3, 6, 7]}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 7}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}

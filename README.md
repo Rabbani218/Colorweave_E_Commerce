@@ -26,7 +26,7 @@ pip install -r requirements.txt
 2) Run the app (defaults to http://127.0.0.1:5001)
 
 ```powershell
-python app.py
+python run.py
 ```
 
 Optional environment variables:
@@ -97,7 +97,7 @@ pytest -q
 
 ### Database (Flask‑Migrate)
 ```powershell
-$env:FLASK_APP = "app.py"
+$env:FLASK_APP = "run.py"
 flask db upgrade
 
 # After model changes
@@ -127,7 +127,7 @@ flask db upgrade
 Put images in `static/images/` and reference the filename in `image`.
 
 ## Project Structure (partial)
-- `app.py` — starter (env‑driven host/port/debug, optional migrations, AI warmup)
+- `run.py` — starter (env‑driven host/port/debug, optional migrations, AI warmup)
 - `app/` — Flask application package
 	- `__init__.py` — factory, extensions, blueprints, security headers, health
 	- `models.py` — SQLAlchemy models (tz‑aware events)

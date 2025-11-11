@@ -17,4 +17,4 @@ services:
       - "5001:5001"
     volumes:
       - .:/app
-    command: ["python", "app.py"]
+  command: ["python", "run.py"]
