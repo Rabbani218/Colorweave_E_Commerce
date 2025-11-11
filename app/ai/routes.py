@@ -203,12 +203,14 @@ def generate_image_endpoint():
 # --- Simple AI shopping assistant (session memory, retrieval-augmented) ---
 @ai_bp.route('/chat', methods=['POST'])
 def chat():
-    """Minimal chat endpoint that answers product questions using semantic retrieval.
+    """Minimal chat endpoint that answers product questions.
+
+    Responses leverage semantic retrieval for product recall.
 
     Request JSON:
-      { "message": "string" }
+        { "message": "string" }
     Response JSON:
-      { "reply": "string", "suggestions": [ {id,name,price,image} ] }
+        { "reply": "string", "suggestions": [ {id,name,price,image} ] }
     """
     data = request.get_json(silent=True) or {}
     msg = (data.get('message') or '').strip()
@@ -322,37 +324,82 @@ def chat():
     # Handle greetings specially
     if intent == 'greeting':
         greet_responses = [
-            "Halo! 👋 Selamat datang di ColorWeave! Aku di sini untuk membantu kamu menemukan gelang yang sempurna. Mau cari yang warna apa atau model gimana?",
-            "Hai! Senang bisa bantu kamu hari ini. ColorWeave punya banyak koleksi gelang handmade yang unik. Ada yang mau dicari?",
-            "Halo! Aku ColorWeave Assistant. Kamu bisa tanya tentang produk, harga, warna, atau apapun seputar gelang kami. Mau mulai dari mana?",
+            (
+                "Halo! 👋 Selamat datang di ColorWeave! Aku di sini untuk membantu "
+                "kamu menemukan gelang yang sempurna. Mau cari yang warna apa atau "
+                "model gimana?"
+            ),
+            (
+                "Hai! Senang bisa bantu kamu hari ini. ColorWeave punya banyak "
+                "koleksi gelang handmade yang unik. Ada yang mau dicari?"
+            ),
+            (
+                "Halo! Aku ColorWeave Assistant. Kamu bisa tanya tentang produk, "
+                "harga, warna, atau apapun seputar gelang kami. Mau mulai dari mana?"
+            ),
         ]
         reply = random.choice(greet_responses)
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120],
-                   'suggestions': [], 'intent': 'greeting'})
+        _audit_log(
+            'chat',
+            {
+                'msg': msg[:120],
+                'suggestions': [],
+                'intent': 'greeting',
+            },
+        )
         return jsonify({"reply": reply, "suggestions": []})
 
     # Handle info/general questions
     if intent == 'info' and not items:
         info_responses = [
-            "ColorWeave adalah brand aksesoris handmade yang menghadirkan gelang berkualitas dengan berbagai warna dan desain. Setiap produk dibuat dengan detail dan cinta! Mau lihat koleksinya?",
-            "Kami spesialisasi dalam gelang handmade dengan berbagai tema - dari elegan, bohemian, hingga modern. Harga mulai dari Rp 4.500 hingga Rp 150.000. Ada yang mau dicari spesifik?",
-            "ColorWeave menawarkan gelang dengan berbagai pilihan warna: biru, merah, hijau, ungu, emas, silver, pink, hitam, orange, dan teal. Semuanya handcrafted dengan kualitas terbaik. Mau coba cari berdasarkan warna favorit?",
+            (
+                "ColorWeave adalah brand aksesoris handmade yang menghadirkan "
+                "gelang berkualitas dengan berbagai warna dan desain. Setiap "
+                "produk dibuat dengan detail dan cinta! Mau lihat koleksinya?"
+            ),
+            (
+                "Kami spesialisasi dalam gelang handmade dengan berbagai tema - "
+                "dari elegan, bohemian, hingga modern. Harga mulai dari Rp 4.500 "
+                "hingga Rp 150.000. Ada yang mau dicari spesifik?"
+            ),
+            (
+                "ColorWeave menawarkan gelang dengan berbagai pilihan warna: biru, "
+                "merah, hijau, ungu, emas, silver, pink, hitam, orange, dan teal. "
+                "Semuanya handcrafted dengan kualitas terbaik. Mau coba cari "
+                "berdasarkan warna favorit?"
+            ),
         ]
         reply = random.choice(info_responses)
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120],
-                   'suggestions': [], 'intent': 'info'})
+        _audit_log(
+            'chat',
+            {
+                'msg': msg[:120],
+                'suggestions': [],
+                'intent': 'info',
+            },
+        )
         return jsonify({"reply": reply, "suggestions": []})
 
     # Handle purchase questions
     if intent == 'purchase':
         purchase_responses = [
-            "Untuk membeli, kamu bisa klik 'Add to Cart' pada produk yang kamu suka, lalu lanjut ke halaman Cart untuk checkout. Mudah kok! Ada produk tertentu yang mau kamu beli?",
-            "Cara belinya gampang: pilih produk → Add to Cart → Checkout. Kami siap bantu proses pemesananmu! Mau aku carikan produk dulu?",
-            "Tinggal pilih gelang favorit, masukkan ke cart, dan checkout. Kalau butuh rekomendasi dulu, aku bisa bantu carikan yang cocok!",
+            (
+                "Untuk membeli, kamu bisa klik 'Add to Cart' pada produk yang kamu "
+                "suka, lalu lanjut ke halaman Cart untuk checkout. Mudah kok! Ada "
+                "produk tertentu yang mau kamu beli?"
+            ),
+            (
+                "Cara belinya gampang: pilih produk → Add to Cart → Checkout. Kami "
+                "siap bantu proses pemesananmu! Mau aku carikan produk dulu?"
+            ),
+            (
+                "Tinggal pilih gelang favorit, masukkan ke cart, dan checkout. "
+                "Kalau butuh rekomendasi dulu, aku bisa bantu carikan yang cocok!"
+            ),
         ]
         reply = random.choice(purchase_responses)
         if items:
@@ -361,8 +408,10 @@ def chat():
             reply += f" Btw, produk ini mungkin cocok: {names}."
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120], 'suggestions': [
-                   it['id'] for it in items]})
+        _audit_log(
+            'chat',
+            {'msg': msg[:120], 'suggestions': [it['id'] for it in items]},
+        )
         return jsonify({"reply": reply, "suggestions": items})
 
     opener = random.choice(opener_pool)
@@ -381,36 +430,72 @@ def chat():
             price_range = [it['price'] for it in items]
             min_price = min(price_range)
             max_price = max(price_range)
-            core = f"{opener} Untuk budget yang kamu cari, ada beberapa pilihan dari Rp {min_price:,} - Rp {max_price:,}. Yang paling populer: {names}."
+            core = (
+                f"{opener} Untuk budget yang kamu cari, ada beberapa pilihan dari "
+                f"Rp {min_price:,} - Rp {max_price:,}. Yang paling populer: "
+                f"{names}."
+            )
         elif intent == 'color':
-            core = f"{opener} Untuk warna yang kamu mau, ini yang paling cocok: {names}."
+            core = (
+                f"{opener} Untuk warna yang kamu mau, ini yang paling cocok: "
+                f"{names}."
+            )
         elif intent == 'type':
             core = f"{opener} Ini koleksi {intent} yang sesuai: {names}."
         elif intent == 'material':
-            core = f"{opener} Produk kami handmade dengan bahan berkualitas. Beberapa yang mungkin cocok: {names}."
+            core = (
+                f"{opener} Produk kami handmade dengan bahan berkualitas. "
+                f"Beberapa yang mungkin cocok: {names}."
+            )
         else:
-            core = f"{opener} Berdasarkan yang kamu cari, yang paling cocok: {names}."
+            core = (
+                f"{opener} Berdasarkan yang kamu cari, yang paling cocok: "
+                f"{names}."
+            )
         reply = core + " " + random.choice(followups)
     else:
         # Better no-results responses
         empathy_pool = [
             "Hmm, aku belum menemukan yang pas dari kata kunci itu.",
-            "Sepertinya pencarian itu terlalu spesifik. Coba kata kunci yang lebih umum?",
+            (
+                "Sepertinya pencarian itu terlalu spesifik. Coba kata kunci yang "
+                "lebih umum?"
+            ),
             "Belum ketemu yang cocok nih.",
         ]
         tips_pool = [
-            "Coba sebutkan warna favorit (biru, merah, emas, pink, dll), tipe yang diinginkan, atau rentang harga.",
-            "Misalnya coba ketik: 'gelang biru', 'yang elegan', 'budget 100 ribu', atau 'bohemian style'.",
-            "Aku bisa bantu kalau kamu kasih detail seperti: warna, gaya (elegan/casual/bohemian), atau untuk acara apa.",
-            "Coba keyword seperti: 'gelang emas luxury', 'pink romantic', atau 'silver modern'.",
-            "Ketik contoh: 'gelang biru di bawah 150 ribu' atau 'yang cocok untuk hadiah'.",
+            (
+                "Coba sebutkan warna favorit (biru, merah, emas, pink, dll), tipe "
+                "yang diinginkan, atau rentang harga."
+            ),
+            (
+                "Misalnya coba ketik: 'gelang biru', 'yang elegan', 'budget 100 "
+                "ribu', atau 'bohemian style'."
+            ),
+            (
+                "Aku bisa bantu kalau kamu kasih detail seperti: warna, gaya "
+                "(elegan/casual/bohemian), atau untuk acara apa."
+            ),
+            (
+                "Coba keyword seperti: 'gelang emas luxury', 'pink romantic', "
+                "atau 'silver modern'."
+            ),
+            (
+                "Ketik contoh: 'gelang biru di bawah 150 ribu' atau 'yang cocok "
+                "untuk hadiah'."
+            ),
         ]
         reply = vary([random.choice(empathy_pool), random.choice(tips_pool)])
 
     history.append({"role": "assistant", "content": reply})
     session['ai_chat_history'] = history
-    _audit_log('chat', {'msg': msg[:120], 'suggestions': [
-               it['id'] for it in items]})
+    _audit_log(
+        'chat',
+        {
+            'msg': msg[:120],
+            'suggestions': [it['id'] for it in items],
+        },
+    )
     return jsonify({"reply": reply, "suggestions": items})
 
 
@@ -477,5 +562,8 @@ def recommend_for_user():
         for i in ids
         if i in pmap
     ]
-    _audit_log('recommend_for_user', {'ip': ip, 'sid': sid, 'len': len(items)})
+    _audit_log(
+        'recommend_for_user',
+        {'ip': ip, 'sid': sid, 'len': len(items)},
+    )
     return jsonify({'items': items})
