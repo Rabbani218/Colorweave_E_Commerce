@@ -15,13 +15,20 @@ ai_bp = Blueprint('ai', __name__)
 
 def _get_indexer():
     cfg = current_app.config
-    idx = EmbeddingIndexer(model_name=cfg.get('EMBEDDING_MODEL'), persist_dir=cfg.get('VECTOR_DB_PATH'))
+    idx = EmbeddingIndexer(
+        model_name=cfg.get('EMBEDDING_MODEL'),
+        persist_dir=cfg.get('VECTOR_DB_PATH'),
+    )
     # build lazily
     return idx
 
+
 def _get_vision_indexer():
     cfg = current_app.config
-    return VisionIndexer(static_folder=current_app.static_folder, persist_dir=cfg.get('VECTOR_DB_PATH'))
+    return VisionIndexer(
+        static_folder=current_app.static_folder,
+        persist_dir=cfg.get('VECTOR_DB_PATH'),
+    )
 
 
 def _audit_log(event: str, detail: dict):
@@ -39,6 +46,7 @@ def _audit_log(event: str, detail: dict):
 
 
 _RATE_BUCKETS = {}
+
 
 def _rate_limit(key: str, limit: int = 60, window_sec: int = 300) -> bool:
     now = time.time()
@@ -65,7 +73,15 @@ def recommend():
         return jsonify({'error': 'invalid product_id'}), 400
     idx = _get_indexer()
     rec = Recommender(idx).recommend_for_product(pid, k=5)
-    items = [{'id': p.id, 'name': p.name, 'price': p.price, 'image': p.image} for p in rec]
+    items = [
+        {
+            'id': p.id,
+            'name': p.name,
+            'price': p.price,
+            'image': p.image,
+        }
+        for p in rec
+    ]
     _audit_log('recommend', {'pid': pid, 'len': len(items), 'ip': ip})
     return jsonify({'items': items})
 
@@ -85,10 +101,19 @@ def recommend_cf():
     idx = _get_indexer()
     r = Recommender(idx)
     pairs = r.cooccurrence_for_product(pid, k=8)
-    ids = [pid for pid,_ in pairs]
+    ids = [pid for pid, _ in pairs]
     products = Product.query.filter(Product.id.in_(ids)).all()
     pmap = {p.id: p for p in products}
-    items = [{'id': i, 'name': pmap[i].name, 'price': pmap[i].price, 'image': pmap[i].image} for i in ids if i in pmap]
+    items = [
+        {
+            'id': i,
+            'name': pmap[i].name,
+            'price': pmap[i].price,
+            'image': pmap[i].image,
+        }
+        for i in ids
+        if i in pmap
+    ]
     _audit_log('recommend_cf', {'pid': pid, 'len': len(items)})
     return jsonify({'items': items})
 
@@ -107,7 +132,15 @@ def recommend_hybrid():
         return jsonify({'error': 'invalid product_id'}), 400
     idx = _get_indexer()
     rec = Recommender(idx).hybrid_for_product(pid, k=8)
-    items = [{'id': p.id, 'name': p.name, 'price': p.price, 'image': p.image} for p in rec]
+    items = [
+        {
+            'id': p.id,
+            'name': p.name,
+            'price': p.price,
+            'image': p.image,
+        }
+        for p in rec
+    ]
     _audit_log('recommend_hybrid', {'pid': pid, 'len': len(items)})
     return jsonify({'items': items})
 
@@ -125,7 +158,16 @@ def search():
     ids = [pid for pid, _ in pairs]
     products = Product.query.filter(Product.id.in_(ids)).all()
     prod_map = {p.id: p for p in products}
-    items = [ {'id': pid, 'name': prod_map.get(pid).name, 'price': prod_map.get(pid).price, 'image': prod_map.get(pid).image} for pid in ids if prod_map.get(pid) ]
+    items = [
+        {
+            'id': pid,
+            'name': prod_map[pid].name,
+            'price': prod_map[pid].price,
+            'image': prod_map[pid].image,
+        }
+        for pid in ids
+        if pid in prod_map
+    ]
     _audit_log('search', {'q': q[:100], 'len': len(items), 'ip': ip})
     return jsonify({'items': items})
 
@@ -140,11 +182,21 @@ def generate_image_endpoint():
     prompt = data.get('prompt') or request.form.get('prompt')
     if not prompt:
         return jsonify({'error': 'prompt required'}), 400
-    out_dir = os.path.join(current_app.static_folder or 'static', 'images', 'generated')
+    out_dir = os.path.join(
+        current_app.static_folder or 'static',
+        'images',
+        'generated',
+    )
     filename = f"gen_{abs(hash(prompt)) % (10**8)}.png"
     path = generate_image(prompt, filename, out_dir)
     rel = os.path.relpath(path, start=current_app.static_folder)
-    _audit_log('generate_image', {'user': getattr(current_user, 'id', None), 'prompt': (prompt or '')[:80]})
+    _audit_log(
+        'generate_image',
+        {
+            'user': getattr(current_user, 'id', None),
+            'prompt': (prompt or '')[:80],
+        },
+    )
     return jsonify({'path': f"/static/{rel}"})
 
 
@@ -175,22 +227,68 @@ def chat():
     products = Product.query.filter(Product.id.in_(ids)).all() if ids else []
     prod_map = {p.id: p for p in products}
     items = [
-        {"id": pid, "name": prod_map[pid].name, "price": prod_map[pid].price, "image": prod_map[pid].image}
-        for pid in ids if pid in prod_map
+        {
+            "id": pid,
+            "name": prod_map[pid].name,
+            "price": prod_map[pid].price,
+            "image": prod_map[pid].image,
+        }
+        for pid in ids
+        if pid in prod_map
     ]
 
     # Compose a varied, CS-style reply (simple template-based, no external LLM)
     def _intent(msg: str) -> str:
         m = msg.lower()
-        if any(k in m for k in ['harga', 'murah', 'mahal', 'budget', 'kisaran', 'berapa']):
+        if any(
+            k in m
+            for k in ['harga', 'murah', 'mahal', 'budget', 'kisaran', 'berapa']
+        ):
             return 'price'
-        if any(k in m for k in ['warna', 'color', 'biru', 'merah', 'hitam', 'putih', 'emas', 'silver', 'pink', 'hijau', 'ungu', 'orange', 'teal']):
+        if any(
+            k in m
+            for k in [
+                'warna',
+                'color',
+                'biru',
+                'merah',
+                'hitam',
+                'putih',
+                'emas',
+                'silver',
+                'pink',
+                'hijau',
+                'ungu',
+                'orange',
+                'teal',
+            ]
+        ):
             return 'color'
-        if any(k in m for k in ['gelang', 'kalung', 'cincin', 'anting', 'bracelet', 'necklace', 'ring', 'earring', 'aksesoris', 'perhiasan']):
+        if any(
+            k in m
+            for k in [
+                'gelang',
+                'kalung',
+                'cincin',
+                'anting',
+                'bracelet',
+                'necklace',
+                'ring',
+                'earring',
+                'aksesoris',
+                'perhiasan',
+            ]
+        ):
             return 'type'
-        if any(k in m for k in ['rekomendasi', 'saran', 'cocok', 'suggest', 'rekomen', 'bagus']):
+        if any(
+            k in m
+            for k in ['rekomendasi', 'saran', 'cocok', 'suggest', 'rekomen', 'bagus']
+        ):
             return 'recommend'
-        if any(k in m for k in ['halo', 'hai', 'hi', 'hello', 'pagi', 'siang', 'malam', 'hey']):
+        if any(
+            k in m
+            for k in ['halo', 'hai', 'hi', 'hello', 'pagi', 'siang', 'malam', 'hey']
+        ):
             return 'greeting'
         if any(k in m for k in ['bahan', 'material', 'kualitas', 'terbuat']):
             return 'material'
@@ -220,7 +318,7 @@ def chat():
         "Siap bantu!",
         "Oke, mari kita cari yang cocok.",
     ]
-    
+
     # Handle greetings specially
     if intent == 'greeting':
         greet_responses = [
@@ -231,9 +329,10 @@ def chat():
         reply = random.choice(greet_responses)
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120], 'suggestions': [], 'intent': 'greeting'})
+        _audit_log('chat', {'msg': msg[:120],
+                   'suggestions': [], 'intent': 'greeting'})
         return jsonify({"reply": reply, "suggestions": []})
-    
+
     # Handle info/general questions
     if intent == 'info' and not items:
         info_responses = [
@@ -244,9 +343,10 @@ def chat():
         reply = random.choice(info_responses)
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120], 'suggestions': [], 'intent': 'info'})
+        _audit_log('chat', {'msg': msg[:120],
+                   'suggestions': [], 'intent': 'info'})
         return jsonify({"reply": reply, "suggestions": []})
-    
+
     # Handle purchase questions
     if intent == 'purchase':
         purchase_responses = [
@@ -261,9 +361,10 @@ def chat():
             reply += f" Btw, produk ini mungkin cocok: {names}."
         history.append({"role": "assistant", "content": reply})
         session['ai_chat_history'] = history
-        _audit_log('chat', {'msg': msg[:120], 'suggestions': [it['id'] for it in items]})
+        _audit_log('chat', {'msg': msg[:120], 'suggestions': [
+                   it['id'] for it in items]})
         return jsonify({"reply": reply, "suggestions": items})
-    
+
     opener = random.choice(opener_pool)
 
     if items:
@@ -308,7 +409,8 @@ def chat():
 
     history.append({"role": "assistant", "content": reply})
     session['ai_chat_history'] = history
-    _audit_log('chat', {'msg': msg[:120], 'suggestions': [it['id'] for it in items]})
+    _audit_log('chat', {'msg': msg[:120], 'suggestions': [
+               it['id'] for it in items]})
     return jsonify({"reply": reply, "suggestions": items})
 
 
@@ -332,14 +434,20 @@ def visual_search():
 
     v = _get_vision_indexer()
     pairs = v.query_image(img, k=12)
-    ids = [pid for pid,_ in pairs]
+    ids = [pid for pid, _ in pairs]
     if not ids:
         return jsonify({'items': []})
     products = Product.query.filter(Product.id.in_(ids)).all()
     pmap = {p.id: p for p in products}
     items = [
-        {'id': pid, 'name': pmap[pid].name, 'price': pmap[pid].price, 'image': pmap[pid].image}
-        for pid in ids if pid in pmap
+        {
+            'id': pid,
+            'name': pmap[pid].name,
+            'price': pmap[pid].price,
+            'image': pmap[pid].image,
+        }
+        for pid in ids
+        if pid in pmap
     ]
     _audit_log('visual_search', {'ip': ip, 'len': len(items)})
     return jsonify({'items': items})
@@ -359,6 +467,15 @@ def recommend_for_user():
         return jsonify({'items': []})
     products = Product.query.filter(Product.id.in_(ids)).all()
     pmap = {p.id: p for p in products}
-    items = [{'id': i, 'name': pmap[i].name, 'price': pmap[i].price, 'image': pmap[i].image} for i in ids if i in pmap]
+    items = [
+        {
+            'id': i,
+            'name': pmap[i].name,
+            'price': pmap[i].price,
+            'image': pmap[i].image,
+        }
+        for i in ids
+        if i in pmap
+    ]
     _audit_log('recommend_for_user', {'ip': ip, 'sid': sid, 'len': len(items)})
     return jsonify({'items': items})
