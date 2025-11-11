@@ -284,19 +284,40 @@ def chat():
             return 'type'
         if any(
             k in m
-            for k in ['rekomendasi', 'saran', 'cocok', 'suggest', 'rekomen', 'bagus']
+            for k in [
+                'rekomendasi',
+                'saran',
+                'cocok',
+                'suggest',
+                'rekomen',
+                'bagus',
+            ]
         ):
             return 'recommend'
         if any(
             k in m
-            for k in ['halo', 'hai', 'hi', 'hello', 'pagi', 'siang', 'malam', 'hey']
+            for k in [
+                'halo',
+                'hai',
+                'hi',
+                'hello',
+                'pagi',
+                'siang',
+                'malam',
+                'hey',
+            ]
         ):
             return 'greeting'
         if any(k in m for k in ['bahan', 'material', 'kualitas', 'terbuat']):
             return 'material'
-        if any(k in m for k in ['beli', 'order', 'pesan', 'checkout', 'bayar']):
+        if any(
+            k in m for k in ['beli', 'order', 'pesan', 'checkout', 'bayar']
+        ):
             return 'purchase'
-        if any(k in m for k in ['info', 'tentang', 'apa itu', 'jelaskan', 'ceritakan']):
+        if any(
+            k in m
+            for k in ['info', 'tentang', 'apa itu', 'jelaskan', 'ceritakan']
+        ):
             return 'info'
         return 'general'
 
@@ -325,17 +346,19 @@ def chat():
     if intent == 'greeting':
         greet_responses = [
             (
-                "Halo! 👋 Selamat datang di ColorWeave! Aku di sini untuk membantu "
-                "kamu menemukan gelang yang sempurna. Mau cari yang warna apa atau "
-                "model gimana?"
+                "Halo! 👋 Selamat datang di ColorWeave! "
+                "Aku di sini untuk membantu kamu menemukan gelang yang "
+                "sempurna. Mau cari yang warna apa atau model gimana?"
             ),
             (
-                "Hai! Senang bisa bantu kamu hari ini. ColorWeave punya banyak "
-                "koleksi gelang handmade yang unik. Ada yang mau dicari?"
+                "Hai! Senang bisa bantu kamu hari ini. "
+                "ColorWeave punya banyak koleksi gelang handmade yang unik. "
+                "Ada yang mau dicari?"
             ),
             (
-                "Halo! Aku ColorWeave Assistant. Kamu bisa tanya tentang produk, "
-                "harga, warna, atau apapun seputar gelang kami. Mau mulai dari mana?"
+                "Halo! Aku ColorWeave Assistant. "
+                "Kamu bisa tanya tentang produk, harga, warna, "
+                "atau apapun seputar gelang kami. Mau mulai dari mana?"
             ),
         ]
         reply = random.choice(greet_responses)
@@ -354,22 +377,18 @@ def chat():
     # Handle info/general questions
     if intent == 'info' and not items:
         info_responses = [
-            (
-                "ColorWeave adalah brand aksesoris handmade yang menghadirkan "
-                "gelang berkualitas dengan berbagai warna dan desain. Setiap "
-                "produk dibuat dengan detail dan cinta! Mau lihat koleksinya?"
-            ),
-            (
-                "Kami spesialisasi dalam gelang handmade dengan berbagai tema - "
-                "dari elegan, bohemian, hingga modern. Harga mulai dari Rp 4.500 "
-                "hingga Rp 150.000. Ada yang mau dicari spesifik?"
-            ),
-            (
-                "ColorWeave menawarkan gelang dengan berbagai pilihan warna: biru, "
-                "merah, hijau, ungu, emas, silver, pink, hitam, orange, dan teal. "
-                "Semuanya handcrafted dengan kualitas terbaik. Mau coba cari "
-                "berdasarkan warna favorit?"
-            ),
+            ("ColorWeave adalah brand aksesoris handmade yang menghadirkan "
+             "gelang berkualitas dengan berbagai warna dan desain. "
+             "Setiap produk dibuat dengan detail dan cinta! "
+             "Mau lihat koleksinya?"),
+            ("Kami spesialisasi dalam gelang handmade dengan berbagai tema - "
+             "dari elegan, bohemian, hingga modern. "
+             "Harga mulai dari Rp 4.500 hingga Rp 150.000. "
+             "Ada yang mau dicari spesifik?"),
+            ("ColorWeave menawarkan gelang dengan berbagai pilihan warna: "
+             "biru, merah, hijau, ungu, emas, silver, pink, hitam, orange, "
+             "dan teal. Semuanya handcrafted dengan kualitas terbaik. Mau "
+             "coba cari berdasarkan warna favorit?"),
         ]
         reply = random.choice(info_responses)
         history.append({"role": "assistant", "content": reply})
@@ -388,17 +407,20 @@ def chat():
     if intent == 'purchase':
         purchase_responses = [
             (
-                "Untuk membeli, kamu bisa klik 'Add to Cart' pada produk yang kamu "
-                "suka, lalu lanjut ke halaman Cart untuk checkout. Mudah kok! Ada "
-                "produk tertentu yang mau kamu beli?"
+                "Untuk membeli, kamu bisa klik 'Add to Cart' "
+                "pada produk yang kamu suka. Lanjutkan ke halaman Cart "
+                "untuk checkout. Mudah kok! Ada produk tertentu yang mau "
+                "kamu beli?"
             ),
             (
-                "Cara belinya gampang: pilih produk → Add to Cart → Checkout. Kami "
-                "siap bantu proses pemesananmu! Mau aku carikan produk dulu?"
+                "Cara belinya gampang: pilih produk → Add to Cart → "
+                "Checkout. Kami siap bantu proses pemesananmu! Mau aku "
+                "carikan produk dulu?"
             ),
             (
-                "Tinggal pilih gelang favorit, masukkan ke cart, dan checkout. "
-                "Kalau butuh rekomendasi dulu, aku bisa bantu carikan yang cocok!"
+                "Tinggal pilih gelang favorit, masukkan ke cart, "
+                "dan checkout. Kalau butuh rekomendasi dulu, aku bisa "
+                "bantu carikan yang cocok!"
             ),
         ]
         reply = random.choice(purchase_responses)
@@ -431,9 +453,9 @@ def chat():
             min_price = min(price_range)
             max_price = max(price_range)
             core = (
-                f"{opener} Untuk budget yang kamu cari, ada beberapa pilihan dari "
-                f"Rp {min_price:,} - Rp {max_price:,}. Yang paling populer: "
-                f"{names}."
+                f"{opener} Untuk budget yang kamu cari, ada beberapa pilihan "
+                f"dari Rp {min_price:,} - Rp {max_price:,}. "
+                f"Yang paling populer: {names}."
             )
         elif intent == 'color':
             core = (
@@ -458,31 +480,31 @@ def chat():
         empathy_pool = [
             "Hmm, aku belum menemukan yang pas dari kata kunci itu.",
             (
-                "Sepertinya pencarian itu terlalu spesifik. Coba kata kunci yang "
-                "lebih umum?"
+                "Sepertinya pencarian itu terlalu spesifik. "
+                "Coba kata kunci yang lebih umum?"
             ),
             "Belum ketemu yang cocok nih.",
         ]
         tips_pool = [
             (
-                "Coba sebutkan warna favorit (biru, merah, emas, pink, dll), tipe "
-                "yang diinginkan, atau rentang harga."
+                "Coba sebutkan warna favorit (biru, merah, emas, pink, dll), "
+                "tipe yang diinginkan, atau rentang harga."
             ),
             (
-                "Misalnya coba ketik: 'gelang biru', 'yang elegan', 'budget 100 "
-                "ribu', atau 'bohemian style'."
+                "Misalnya coba ketik: 'gelang biru', 'yang elegan', "
+                "'budget 100 ribu', atau 'bohemian style'."
             ),
             (
                 "Aku bisa bantu kalau kamu kasih detail seperti: warna, gaya "
                 "(elegan/casual/bohemian), atau untuk acara apa."
             ),
             (
-                "Coba keyword seperti: 'gelang emas luxury', 'pink romantic', "
-                "atau 'silver modern'."
+                "Coba keyword seperti: 'gelang emas luxury', "
+                "'pink romantic', atau 'silver modern'."
             ),
             (
-                "Ketik contoh: 'gelang biru di bawah 150 ribu' atau 'yang cocok "
-                "untuk hadiah'."
+                "Ketik contoh: 'gelang biru di bawah 150 ribu' atau "
+                "'yang cocok untuk hadiah'."
             ),
         ]
         reply = vary([random.choice(empathy_pool), random.choice(tips_pool)])

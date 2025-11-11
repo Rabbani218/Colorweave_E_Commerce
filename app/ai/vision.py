@@ -34,7 +34,10 @@ class VisionIndexer:
         self.features: List[List[float]] = []
 
     def _product_image_path(self, image_name: str) -> str:
-        return os.path.join(self.static_folder or 'static', 'images', image_name)
+        return os.path.join(
+            self.static_folder or 'static',
+            'images',
+            image_name)
 
     def build_index(self, force: bool = False):
         # Try load cache first
@@ -80,7 +83,8 @@ class VisionIndexer:
             except Exception:
                 pass
 
-    def query_image(self, img: Image.Image, k: int = 8) -> List[Tuple[int, float]]:
+    def query_image(self, img: Image.Image,
+                    k: int = 8) -> List[Tuple[int, float]]:
         if not self.ids:
             self.build_index()
         if not self.ids:
