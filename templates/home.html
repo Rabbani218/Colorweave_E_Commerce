@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}ColorWeave - Home{% endblock %}
+
+{% block content %}
+<header class="header home-header">
+    <div class="container">
+        <h1>🌈 Welcome to ColorWeave</h1>
+        <p>🎉 Celebrate Diversity and Self-Expression with Our Handmade Bracelets</p>
+        <a href="/products" class="btn">✨ Shop Now</a>
+    </div>
+</header>
+
+<main class="main-content">
+    <!-- About Product Section -->
+    <section class="about-product">
+        <div class="container">
+            <h2 class="center-title">💡 About ColorWeave</h2>
+            <div class="about-product-content">
+                <div class="about-text">
+                    <p>🎨 ColorWeave adalah produk utama dari Colorweave yang berupa gelang warna-warni berbahan dasar tali katun alami. Gelang ini terinspirasi dari konsep keberagaman dan ekspresi diri melalui warna-warna cerah yang terjalin dalam desain yang unik.</p>
+                    <p>🧵 Dengan bahan yang lembut, nyaman, dan ramah lingkungan, ColorWeave cocok untuk digunakan sehari-hari, baik dalam situasi kasual maupun formal. Produk ini dirancang untuk semua kalangan usia, baik pria maupun wanita, yang ingin tampil lebih ekspresif dan penuh warna.</p>
+                </div>
+                <img src="{{ url_for('static', filename='BRACH1.png') }}" alt="ColorWeave Product" class="about-image-small">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>🌟 Why Choose ColorWeave?</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>🌿 Eco-Friendly</h3>
+                    <p>ColorWeave supports sustainable fashion by using recyclable materials and ethical production methods.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎨 Handmade Craftsmanship</h3>
+                    <p>Each bracelet is crafted with meticulous attention to detail, making it a unique piece of wearable art.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎭 Personalized Design</h3>
+                    <p>Express your individuality with bracelets designed to reflect your style and personality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Section -->
+    <section class="event-section">
+        <div class="container event-content">
+            <h2>🎪 Join Us at the Entrepreneur Fair!</h2>
+            <p class="event-description text-justify">✨ <strong>Entrepreneur Fair</strong> Universitas BSI hadir dengan tema <em>“Belanja Seru Istimewa”</em>. Sebuah pameran wirausaha yang melibatkan mahasiswa dari berbagai program studi di Universitas BSI, di mana mereka akan mempromosikan produk kreatif mereka dan diuji oleh juri profesional.</p>
+            <p class="event-description text-justify">🌱 Dukung kreativitas dan inovasi mahasiswa dengan mengunjungi booth ColorWeave! Dapatkan berbagai pilihan gelang warna-warni kami yang unik dan berkualitas tinggi!</p>
+
+            <div class="highlight">
+                <p>📅 <strong>Tanggal:</strong> Senin, 9 Desember 2024</p>
+                <p>🕒 <strong>Waktu:</strong> 14.00 - 20.00 WIB</p>
+                <p>📍 <strong>Lokasi:</strong> UBSI Margonda Kampus B</p>
+                <p>🏢 <strong>Alamat:</strong> Jl. Margonda Raya No. 100, Depok</p>
+            </div>
+            <p class="event-description text-justify">Jangan lewatkan kesempatan untuk berbincang langsung dengan pengrajin dan melihat berbagai koleksi kami di lokasi! 🎉</p>
+            <a href="/contact" class="btn cta-btn">📞 Contact Us for More Info</a>
+        </div>
+        <div class="event-image"></div>
+    </section>
+</main>
+{% endblock %}

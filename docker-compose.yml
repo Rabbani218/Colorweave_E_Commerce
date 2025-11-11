@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    depends_on:
+      - redis
+    environment:
+      - FLASK_ENV=development
+      - REDIS_URL=redis://redis:6379/0
+      - ADMIN_PASSWORD=adminpass
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+    command: ["python", "app.py"]

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Register - ColorWeave{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+<div class="auth-bg auth-bg-brown">
+  <div class="auth-card">
+    <div class="brand-mark"><span>CW</span></div>
+    <h1>Create account</h1>
+    <div class="subtitle">Join ColorWeave to enjoy a personalized shopping experience.</div>
+    <form method="POST" action="{{ url_for('main.register') }}" autocomplete="off" novalidate>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="regUsername" name="username" placeholder="Choose username" required>
+        <label for="regUsername">Username</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="regPassword" name="password" placeholder="Create password" required>
+        <label for="regPassword">Password</label>
+      </div>
+      <button type="submit" class="btn gradient-btn w-100 py-2 mb-2">Create account</button>
+    </form>
+    <div class="divider"><span>OR SIGN IN</span></div>
+    <div class="toggle-pane text-center">
+      <h2>Already have an account?</h2>
+      <a class="btn btn-outline-dark w-100" href="{{ url_for('main.login') }}">Go to Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

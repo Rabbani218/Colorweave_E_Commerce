@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}Products - ColorWeave{% endblock %}
+
+{% block content %}
+{# Remove old header block left from earlier version #}
+<header class="products-hero gradient-primary text-light py-5">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-md-7">
+                <h1 class="display-5 fw-bold mb-2">Our Products</h1>
+                <p class="lead mb-0 text-light-50">Explore Our Exclusive Handmade Bracelets</p>
+            </div>
+            <div class="col-md-5 text-md-end">
+                <img src="{{ url_for('static', filename='images/brand_abstract.svg') }}" alt="Brand motif" class="img-fluid opacity-75 d-none d-md-inline" style="max-height:120px;">
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="products-section py-5">
+    <div class="container">
+        <!-- Unified Search Box -->
+        <div class="mb-5 p-4 glass-surface rounded-4 shadow-lg">
+            <h3 class="mb-3 fw-bold text-center">🔍 Cari Produk</h3>
+            <p class="text-center text-muted mb-4">Temukan gelang impianmu dengan AI atau upload gambar untuk pencarian visual</p>
+            
+            <!-- Tabs for switching search modes -->
+            <ul class="nav nav-pills nav-fill mb-4" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="text-search-tab" data-bs-toggle="pill" data-bs-target="#text-search-pane" type="button" role="tab">
+                        💬 Pencarian Teks
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="image-search-tab" data-bs-toggle="pill" data-bs-target="#image-search-pane" type="button" role="tab">
+                        🖼️ Pencarian Gambar
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="searchTabContent">
+                <!-- Text Search Pane -->
+                <div class="tab-pane fade show active" id="text-search-pane" role="tabpanel">
+                    <form id="ai-search-form" onsubmit="event.preventDefault(); aiSearch();">
+                        <div class="input-group input-group-lg">
+                            <input id="ai-search-input" type="text" class="form-control" placeholder="Contoh: gelang merah elegan, bohemian orange, luxury gold..." autocomplete="off">
+                            <button class="btn btn-primary px-4" type="submit">
+                                <span class="d-none d-sm-inline">Cari dengan AI</span>
+                                <span class="d-inline d-sm-none">Cari</span>
+                            </button>
+                        </div>
+                        <small class="text-muted d-block mt-2">✨ Pencarian semantic menggunakan AI untuk hasil paling relevan</small>
+                    </form>
+                </div>
+                
+                <!-- Image Search Pane -->
+                <div class="tab-pane fade" id="image-search-pane" role="tabpanel">
+                    <form id="visual-form" onsubmit="event.preventDefault(); visualSearch();">
+                        <div class="mb-3">
+                            <label for="visual-input" class="form-label fw-semibold">Upload gambar gelang untuk mencari yang serupa</label>
+                            <input id="visual-input" type="file" accept="image/*" class="form-control form-control-lg">
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-outline-primary btn-lg" type="submit">🖼️ Cari Produk Serupa</button>
+                        </div>
+                        <small class="text-muted d-block mt-2">📸 Upload foto gelang favoritmu, kami akan temukan yang mirip</small>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Filter Tags -->
+        <div class="mb-4 text-center">
+            <span class="text-muted me-2">Filter cepat:</span>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="document.getElementById('ai-search-input').value='gelang biru';aiSearch();">🔵 Biru</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="document.getElementById('ai-search-input').value='gelang merah';aiSearch();">🔴 Merah</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="document.getElementById('ai-search-input').value='gelang emas';aiSearch();">🟡 Emas</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="document.getElementById('ai-search-input').value='gelang silver';aiSearch();">⚪ Silver</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="document.getElementById('ai-search-input').value='gelang elegan';aiSearch();">✨ Elegan</button>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-2 mb-2" onclick="location.reload();">🔄 Reset</button>
+        </div>
+        <div class="row g-4" id="products-grid">
+            {% for product in products %}
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 product-card border-0 shadow-sm">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="d-block">
+                        <div class="product-skel" data-skel>
+                            {% set img_name = product.image if product.image else 'placeholder_product.svg' %}
+                            <img src="{{ url_for('static', filename='images/' ~ img_name) }}"
+                                 class="card-img-top object-fit-cover"
+                                 alt="{{ product.name }}"
+                                 width="400"
+                                 height="220"
+                                 loading="lazy"
+                                 data-skel-img
+                                 style="height:220px;"
+                                 onerror="handleProductImageError(this);">
+                        </div>
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-semibold">{{ product.name }}</h5>
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <p class="card-text text-primary fw-bold mb-0">{{ product.price|idr }}</p>
+                                                    <span class="badge rounded-pill text-bg-light border">{% if product.stock and product.stock < 5 %}Low stock{% elif product.id % 3 == 0 %}New{% else %}Popular{% endif %}</span>
+                                                </div>
+                                                <div class="mb-2" aria-label="rating">
+                                                    {% set stars = 3 + (product.id % 3) %}
+                                                    {% for i in range(5) %}
+                                                        {% if i < stars %}
+                                                            <span style="color:#fbbf24;">★</span>
+                                                        {% else %}
+                                                            <span style="color:#d1d5db;">★</span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                        <p class="card-text small text-secondary mb-3">{{ product.description }}</p>
+                        <form action="{{ url_for('add_to_cart') }}" method="POST" class="mt-auto">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center text-muted small mt-4">
+            © 2025 ColorWeave. Hak cipta dilindungi; distribusi tanpa izin dilarang.
+        </div>
+    </div>
+</section>
+<script>
+function handleProductImageError(img) {
+    if (!img || img.dataset.fallbackApplied) {
+        return;
+    }
+    img.dataset.fallbackApplied = 'true';
+    img.src = "{{ url_for('static', filename='images/placeholder_product.svg') }}";
+}
+// set header background from data-bg to avoid linter errors from Jinja braces
+(function(){
+    const h = document.querySelector('header[role="banner"]');
+    if (h && h.dataset.bg) {
+        h.style.backgroundImage = 'url(' + h.dataset.bg + ')';
+        h.style.backgroundPosition = 'center';
+        h.style.backgroundSize = 'cover';
+        h.style.backgroundRepeat = 'no-repeat';
+    }
+})();
+async function aiSearch(){
+    const q = document.getElementById('ai-search-input').value.trim();
+    if(!q) return;
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+    try {
+        const resp = await fetch('/api/ai/search?q=' + encodeURIComponent(q));
+        const data = await resp.json();
+        const items = data.items || [];
+        if(!items.length){
+             grid.innerHTML = '<div class="col-12"><p class="text-muted">Tidak ada hasil untuk pencarian itu.</p></div>';
+             return;
+        }
+        grid.innerHTML = '';
+        const idr=(n)=>'Rp '+(n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+        items.forEach(it => {
+             const col = document.createElement('div');
+             col.className='col-12 col-sm-6 col-md-4';
+             col.innerHTML = `
+                 <div class="card h-100 product-card border-0 shadow-sm">
+                     <a class="d-block" href="/product/${it.id}">
+                         <div class="product-skel" data-skel>
+                             <img src="/static/images/${it.image}" 
+                                  class="card-img-top object-fit-cover" 
+                                  style="height:220px;" 
+                                  alt="${it.name}" 
+                                  loading="lazy" 
+                                  width="400" 
+                                  height="220" 
+                                  data-skel-img
+                                  onerror="this.onerror=null; this.src='/static/images/placeholder_product.svg';">
+                         </div>
+                     </a>
+                     <div class="card-body d-flex flex-column">
+                         <h5 class="card-title fw-semibold">${it.name}</h5>
+                         <div class="d-flex justify-content-between align-items-center mb-2">
+                           <p class="card-text text-primary fw-bold mb-0">${idr(it.price)}</p>
+                           <span class="badge rounded-pill text-bg-light border">Popular</span>
+                         </div>
+                         <form action="/add_to_cart" method="POST" class="mt-auto">
+                             <input type="hidden" name="product_id" value="${it.id}">
+                             <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
+                         </form>
+                     </div>
+                 </div>`;
+           grid.appendChild(col);
+    });
+    if(window.__cwInitSkeletons) window.__cwInitSkeletons(grid);
+    if(window.__cwInitImageFallbacks) window.__cwInitImageFallbacks(grid);
+    } catch (e){
+         grid.innerHTML = '<div class="col-12"><p class="text-danger">Terjadi kesalahan saat pencarian.</p></div>';
+    }
+}
+
+async function visualSearch(){
+    const file = document.getElementById('visual-input').files[0];
+    if(!file) return;
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+    const form = new FormData();
+    form.append('image', file);
+    try{
+        const resp = await fetch('/api/ai/visual_search', {method:'POST', body: form});
+        const data = await resp.json();
+        const items = data.items || [];
+        if(!items.length){
+             grid.innerHTML = '<div class="col-12"><p class="text-muted">Belum ada hasil visual yang cocok.</p></div>';
+             return;
+        }
+        grid.innerHTML = '';
+        const idr=(n)=>'Rp '+(n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+        items.forEach(it => {
+             const col = document.createElement('div');
+             col.className='col-12 col-sm-6 col-md-4';
+             col.innerHTML = `
+                 <div class="card h-100 product-card border-0 shadow-sm">
+                     <a class="d-block" href="/product/${it.id}">
+                         <div class="product-skel" data-skel>
+                             <img src="/static/images/${it.image}" 
+                                  class="card-img-top object-fit-cover" 
+                                  style="height:220px;" 
+                                  alt="${it.name}" 
+                                  loading="lazy" 
+                                  width="400" 
+                                  height="220" 
+                                  data-skel-img
+                                  onerror="this.onerror=null; this.src='/static/images/placeholder_product.svg';">
+                         </div>
+                     </a>
+                     <div class="card-body d-flex flex-column">
+                         <h5 class="card-title fw-semibold">${it.name}</h5>
+                         <div class="d-flex justify-content-between align-items-center mb-2">
+                           <p class="card-text text-primary fw-bold mb-0">${idr(it.price)}</p>
+                           <span class="badge rounded-pill text-bg-light border">Visual match</span>
+                         </div>
+                         <form action="/add_to_cart" method="POST" class="mt-auto">
+                             <input type="hidden" name="product_id" value="${it.id}">
+                             <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
+                         </form>
+                     </div>
+                 </div>`;
+           grid.appendChild(col);
+    });
+    if(window.__cwInitSkeletons) window.__cwInitSkeletons(grid);
+    if(window.__cwInitImageFallbacks) window.__cwInitImageFallbacks(grid);
+    }catch(e){
+        grid.innerHTML = '<div class="col-12"><p class="text-danger">Terjadi kesalahan saat visual search.</p></div>';
+    }
+}
+</script>
+{% endblock %}

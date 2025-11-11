@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="shineTeal" cx="30%" cy="30%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f0fdfa"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="200" cy="240" rx="140" ry="20" fill="#000" opacity="0.1"/>
+  
+  <!-- Main bracelet -->
+  <ellipse cx="200" cy="150" rx="120" ry="100" fill="url(#tealGrad)" stroke="#134e4a" stroke-width="3"/>
+  
+  <!-- Inner hole -->
+  <ellipse cx="200" cy="150" rx="80" ry="65" fill="#f0fdfa" stroke="#134e4a" stroke-width="2"/>
+  
+  <!-- Ocean wave pattern -->
+  <path d="M 140,110 Q 160,105 180,110 Q 200,115 220,110 Q 240,105 260,110" stroke="#5eead4" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 140,190 Q 160,185 180,190 Q 200,195 220,190 Q 240,185 260,190" stroke="#5eead4" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Shell-like beads -->
+  <ellipse cx="160" cy="140" rx="14" ry="10" fill="#99f6e4" stroke="#0f766e" stroke-width="2"/>
+  <ellipse cx="200" cy="105" rx="14" ry="10" fill="#99f6e4" stroke="#0f766e" stroke-width="2"/>
+  <ellipse cx="240" cy="140" rx="14" ry="10" fill="#99f6e4" stroke="#0f766e" stroke-width="2"/>
+  
+  <!-- Shine -->
+  <ellipse cx="170" cy="130" rx="50" ry="40" fill="url(#shineTeal)" opacity="0.6"/>
+  
+  <!-- Label -->
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="16" fill="#0f766e" text-anchor="middle" font-weight="bold">Ocean Teal</text>
+</svg>

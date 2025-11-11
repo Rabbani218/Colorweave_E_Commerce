@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Admin Analytics{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-4">📊 Analytics Dashboard</h1>
+  <p class="text-muted">Total events tercatat: <strong>{{ total_events }}</strong></p>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">Top Product Views</div>
+        <ul class="list-group list-group-flush">
+          {% for item in top_views %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span>{{ item.product.name if item.product else 'Unknown' }}</span>
+              <span class="badge bg-primary">{{ item.count }}</span>
+            </li>
+          {% else %}
+            <li class="list-group-item">Tidak ada data.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">Top Add-to-Cart</div>
+        <ul class="list-group list-group-flush">
+          {% for item in top_adds %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span>{{ item.product.name if item.product else 'Unknown' }}</span>
+              <span class="badge bg-success">{{ item.count }}</span>
+            </li>
+          {% else %}
+            <li class="list-group-item">Tidak ada data.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

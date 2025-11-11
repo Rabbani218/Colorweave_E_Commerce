@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - ColorWeave{% endblock %}
+
+{% block content %}
+<header class="header products-header">
+    <div class="container">
+        <h1>{{ product.name }}</h1>
+    </div>
+</header>
+
+<section class="product-detail-section">
+    <div class="container">
+        <div class="product-detail">
+            <div class="product-media mb-3">
+                <img src="{{ url_for('static', filename='images/' ~ product.image) }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-height:420px; object-fit:cover;">
+            </div>
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p class="product-price">Rp {{ product.price }}</p>
+                <p>{{ product.description }}</p>
+                <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+                <form action="{{ url_for('add_to_cart') }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <label for="qty">Quantity</label>
+                    <input id="qty" name="quantity" type="number" value="1" min="1" max="{{ product.stock }}">
+                    <button type="submit" class="btn btn-buy">Add to Cart</button>
+                </form>
+
+                <a href="/products" class="btn btn-dark">← Back to products</a>
+            </div>
+        </div>
+                {# AI-driven similar product recommendations #}
+                <hr class="my-5">
+                <h3>Produk Serupa</h3>
+                <div id="similar-products" class="row g-3"></div>
+                <script>
+                (function() {
+                        fetch('/api/ai/recommend?product_id={{ product.id }}')
+                            .then(r => r.json())
+                            .then(data => {
+                                const wrap = document.getElementById('similar-products');
+                                if(!wrap) return;
+                                (data.items || []).forEach(it => {
+                                     const col = document.createElement('div');
+                                     col.className='col-6 col-md-3';
+                                     col.innerHTML = `
+                                         <div class="card h-100 shadow-sm">
+                                             <a href="/product/${it.id}"><img src="/static/images/${it.image}" class="card-img-top" style="object-fit:cover;height:160px" alt="${it.name}"></a>
+                                             <div class="card-body p-2">
+                                                 <h6 class="mb-1">${it.name}</h6>
+                                                 <div class="text-muted small">Rp ${it.price}</div>
+                                             </div>
+                                         </div>`;
+                                     wrap.appendChild(col);
+                                });
+                                if(!wrap.children.length){
+                                     wrap.innerHTML = '<p class="text-muted">Belum ada rekomendasi.</p>';
+                                }
+                            }).catch(()=>{});
+                })();
+                </script>
+    </div>
+</section>
+{% endblock %}

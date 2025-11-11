@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="blackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="shineBlack" cx="30%" cy="30%">
+      <stop offset="0%" style="stop-color:#9ca3af;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f9fafb"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="200" cy="240" rx="140" ry="20" fill="#000" opacity="0.2"/>
+  
+  <!-- Main bracelet -->
+  <ellipse cx="200" cy="150" rx="120" ry="100" fill="url(#blackGrad)" stroke="#000000" stroke-width="3"/>
+  
+  <!-- Inner hole -->
+  <ellipse cx="200" cy="150" rx="80" ry="65" fill="#f9fafb" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Edgy studs -->
+  <circle cx="200" cy="95" r="10" fill="#6b7280" stroke="#000000" stroke-width="2"/>
+  <circle cx="160" cy="120" r="10" fill="#6b7280" stroke="#000000" stroke-width="2"/>
+  <circle cx="240" cy="120" r="10" fill="#6b7280" stroke="#000000" stroke-width="2"/>
+  <circle cx="175" cy="185" r="10" fill="#6b7280" stroke="#000000" stroke-width="2"/>
+  <circle cx="225" cy="185" r="10" fill="#6b7280" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Leather texture lines -->
+  <path d="M 140,130 Q 150,135 160,130" stroke="#4b5563" stroke-width="1.5" fill="none"/>
+  <path d="M 240,130 Q 250,135 260,130" stroke="#4b5563" stroke-width="1.5" fill="none"/>
+  <path d="M 190,200 Q 200,205 210,200" stroke="#4b5563" stroke-width="1.5" fill="none"/>
+  
+  <!-- Shine -->
+  <ellipse cx="170" cy="130" rx="50" ry="40" fill="url(#shineBlack)" opacity="0.4"/>
+  
+  <!-- Label -->
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="16" fill="#000000" text-anchor="middle" font-weight="bold">Edgy Black</text>
+</svg>

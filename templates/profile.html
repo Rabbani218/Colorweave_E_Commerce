@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - ColorWeave{% endblock %}
+
+{% block content %}
+<style>
+  .profile-hero{background: linear-gradient(120deg,#2a1f1c,#4b2e28,#8b5e47); color:#fff; padding:48px 0;}
+  .avatar-wrap{ width:120px; height:120px; border-radius:50%; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.25); border:3px solid #fff; }
+  .avatar-wrap img{ width:100%; height:100%; object-fit:cover; }
+  .card-smooth{ border-radius:18px; box-shadow:0 12px 30px -12px rgba(0,0,0,.25); }
+</style>
+<header class="profile-hero">
+  <div class="container d-flex align-items-center gap-4">
+    <div class="avatar-wrap">
+      <img src="{{ url_for('static', filename='images/avatars/' ~ (user.avatar or 'avatar_placeholder.svg')) }}" alt="Avatar">
+    </div>
+    <div>
+      <h2 class="mb-0">{{ user.username }}</h2>
+      <div class="text-light-50">Manage your account information</div>
+    </div>
+  </div>
+</header>
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-lg-8">
+        <div class="card card-smooth p-3 p-md-4">
+          <h5 class="mb-3">Profile details</h5>
+          <form method="POST" action="{{ url_for('main.profile') }}" enctype="multipart/form-data" autocomplete="off">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" value="{{ user.username }}" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" value="{{ user.email or '' }}">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Bio</label>
+                <textarea class="form-control" name="bio" rows="4" placeholder="Tell us about you...">{{ user.bio or '' }}</textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Avatar</label>
+                <input type="file" class="form-control" name="avatar" accept="image/*">
+                <div class="form-text">PNG, JPG, JPEG, GIF, or WEBP. A square image looks best.</div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button class="btn btn-dark">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="card card-smooth p-3 p-md-4">
+          <h6>Account</h6>
+          <ul class="list-unstyled small mb-0">
+            <li><strong>Admin:</strong> {{ 'Yes' if user.is_admin else 'No' }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

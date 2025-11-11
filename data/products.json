@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "ColorWeave Bracelet",
+    "price": 5000,
+    "description": "Handmade woven bracelet with vibrant threads. Ideal for daily wear and gifts.",
+    "image": "bracelet1.svg",
+    "stock": 20
+  },
+  {
+    "id": 2,
+    "name": "ColorWeave Bracelet + Manik Manik",
+    "price": 6000,
+    "description": "Woven bracelet enhanced with decorative beads for extra charm.",
+    "image": "bracelet2.svg",
+    "stock": 15
+  },
+  {
+    "id": 3,
+    "name": "Minimalist ColorWeave",
+    "price": 4500,
+    "description": "A subtle, minimalist bracelet with neutral tones that pairs well with any outfit.",
+    "image": "bracelet3.svg",
+    "stock": 30
+  },
+  {
+    "id": 6,
+    "name": "Classic Blue Bracelet",
+    "price": 85000,
+    "description": "Elegant blue bracelet with decorative beads. Perfect for formal occasions and sophisticated style.",
+    "image": "bracelet_blue_classic.svg",
+    "stock": 12
+  },
+  {
+    "id": 7,
+    "name": "Elegant Red Bracelet",
+    "price": 95000,
+    "description": "Stunning red bracelet with gemstone accents. A statement piece for special events.",
+    "image": "bracelet_red_elegant.svg",
+    "stock": 8
+  },
+  {
+    "id": 8,
+    "name": "Nature Green Bracelet",
+    "price": 75000,
+    "description": "Eco-friendly green bracelet with leaf patterns. Inspired by nature's beauty.",
+    "image": "bracelet_green_nature.svg",
+    "stock": 18
+  },
+  {
+    "id": 9,
+    "name": "Mystic Purple Bracelet",
+    "price": 120000,
+    "description": "Mystical purple bracelet with crystal beads and star motifs. Unique and enchanting design.",
+    "image": "bracelet_purple_mystic.svg",
+    "stock": 6
+  },
+  {
+    "id": 10,
+    "name": "Luxury Gold Bracelet",
+    "price": 150000,
+    "description": "Premium gold-toned bracelet with diamond-shaped accents. The ultimate luxury accessory.",
+    "image": "bracelet_gold_luxury.svg",
+    "stock": 5
+  },
+  {
+    "id": 11,
+    "name": "Modern Silver Bracelet",
+    "price": 110000,
+    "description": "Contemporary silver bracelet with geometric patterns. Sleek and minimalist design.",
+    "image": "bracelet_silver_modern.svg",
+    "stock": 10
+  },
+  {
+    "id": 12,
+    "name": "Romantic Pink Bracelet",
+    "price": 90000,
+    "description": "Sweet pink bracelet with heart decorations and pearl beads. Perfect for romantic occasions.",
+    "image": "bracelet_pink_romantic.svg",
+    "stock": 14
+  },
+  {
+    "id": 13,
+    "name": "Edgy Black Bracelet",
+    "price": 100000,
+    "description": "Bold black leather-style bracelet with metal studs. For those who love edgy fashion.",
+    "image": "bracelet_black_edgy.svg",
+    "stock": 9
+  },
+  {
+    "id": 14,
+    "name": "Bohemian Orange Bracelet",
+    "price": 70000,
+    "description": "Boho-style orange braided bracelet with wooden beads. Free-spirited and artistic.",
+    "image": "bracelet_orange_bohemian.svg",
+    "stock": 16
+  },
+  {
+    "id": 15,
+    "name": "Ocean Teal Bracelet",
+    "price": 88000,
+    "description": "Refreshing teal bracelet with wave patterns and shell-like beads. Inspired by the ocean.",
+    "image": "bracelet_teal_ocean.svg",
+    "stock": 11
+  }
+]
+

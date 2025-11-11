@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}About - ColorWeave{% endblock %}
+
+{% block content %}
+<header class="header about-header">
+    <div class="container">
+        <h1>About Us</h1>
+        <p>Discover the Story Behind ColorWeave 🌈</p>
+    </div>
+</header>
+
+<main class="main-content">
+    <!-- Business Background Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2>Business Background</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>🎨 ColorWeave didirikan dengan tujuan menghadirkan aksesori fesyen yang tidak hanya menarik secara visual, tetapi juga memungkinkan setiap penggunanya untuk mengekspresikan diri dan kreativitas mereka.</p>
+                    <p>🧵 Ide bisnis ini muncul dari semakin berkembangnya tren fesyen di kalangan anak muda dan profesional yang menginginkan aksesori yang lebih personal, unik, dan ramah lingkungan.</p>
+                    <p>💡 Produk unggulan kami, ColorWeave, merupakan gelang berwarna-warni yang dirancang untuk menggambarkan keceriaan, semangat, dan karakter setiap pemakainya. Dengan kombinasi enam warna cerah yang ditenun secara elegan, gelang ini mencerminkan kreativitas dan kepribadian setiap individu.</p>
+                </div>
+                <img src="{{ url_for('static', filename='BRACH1.png') }}" alt="ColorWeave Product" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="container">
+            <h2>Our Vision</h2>
+            <p class="vision-text">
+                *"Menjadi brand aksesori terkemuka yang dikenal secara global karena produk-produknya yang berkualitas tinggi, ramah lingkungan, dan mampu memancarkan kepribadian serta kreativitas setiap pengguna melalui desain yang artistik dan berwarna."*
+            </p>
+            <p class="author">- Muhammad Abdurrahman Rabbani</p>
+            <button id="show-mission" class="btn">See Our Mission 🚀</button>
+        </div>
+    </section>
+    
+    <!-- Mission Section (Hidden by Default) -->
+    <section id="mission-section" class="mission-section">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <ul>
+                <li>🍃 Menghadirkan produk yang dibuat dari bahan alami dan ramah lingkungan seperti tali katun, yang nyaman dipakai, tahan lama, dan stylish.</li>
+                <li>🎨 Menyediakan gelang warna-warni yang memungkinkan pelanggan untuk mengekspresikan kepribadian mereka dengan memilih kombinasi warna yang sesuai dengan gaya mereka.</li>
+                <li>🖌️ Mengutamakan kreativitas dalam setiap desain, sehingga setiap gelang menjadi sebuah karya seni yang dapat dikenakan setiap hari.</li>
+                <li>💰 Menawarkan produk dengan harga terjangkau tanpa mengorbankan kualitas dan estetika, sehingga dapat menjangkau lebih banyak pelanggan.</li>
+                <li>🌱 Berkomitmen terhadap keberlanjutan dengan menggunakan bahan-bahan yang dapat didaur ulang dan diproduksi secara etis, mendukung gerakan fesyen yang lebih ramah lingkungan.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<script>
+    // JavaScript for showing mission after clicking the button
+    document.getElementById('show-mission').addEventListener('click', function() {
+        const missionSection = document.getElementById('mission-section');
+        missionSection.style.display = 'block'; // Show the mission section
+        this.style.display = 'none'; // Hide the "See Our Mission" button after clicking
+    });
+</script>
+
+{% endblock %}

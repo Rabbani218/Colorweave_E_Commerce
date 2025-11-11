@@ -1,0 +1,111 @@
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+chat | {'msg': 'hallop', 'suggestions': [1, 2, 3, 4, 5]}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+chat | {'msg': 'hari ini apa', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'ok', 'suggestions': [1, 2, 3, 4, 5]}
+search | {'q': 'blue', 'len': 10, 'ip': '127.0.0.1'}
+recommend | {'pid': 1, 'len': 5, 'ip': '127.0.0.1'}
+generate_image | {'user': 1, 'prompt': 'A test product image'}
+visual_search | {'ip': '127.0.0.1', 'len': 9}
+recommend_for_user | {'ip': '127.0.0.1', 'sid': 'sessP', 'len': 5}
+recommend_cf | {'pid': 101, 'len': 1}
+recommend_hybrid | {'pid': 101, 'len': 8}
+chat | {'msg': 'halo rekomendasi gelang biru murah', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'halo rekomendasi gelang biru murah', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'hallo', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'kalian', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'mo', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'k', 'suggestions': [1, 2, 3, 4, 5]}
+chat | {'msg': 'j', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'j', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'j', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'j', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'm', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'hallo', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'mi', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'aaaaa', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'halo', 'suggestions': [], 'intent': 'greeting'}
+chat | {'msg': 'mau cari gelang biru yang elegan', 'suggestions': [1, 2, 3, 6, 7]}
+chat | {'msg': 'ceritakan tentang ColorWeave', 'suggestions': [1, 2, 3, 6, 7]}

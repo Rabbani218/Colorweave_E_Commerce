@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - ColorWeave{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:480px;margin:80px auto;">
+  <h2>Admin Login</h2>
+  <form method="POST" action="{{ url_for('admin.login') }}">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+    </div>
+    <button class="btn btn-dark" type="submit">Login</button>
+  </form>
+</div>
+{% endblock %}

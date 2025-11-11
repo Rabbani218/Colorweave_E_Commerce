@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Users{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:80px;">
+  <h2>Admin Users</h2>
+  <a href="{{ url_for('admin.index') }}" class="btn">Back to products</a>
+  <h3>Create User</h3>
+  <form method="POST" action="{{ url_for('admin.create_user') }}">
+    <input name="username" placeholder="Username" required>
+    <input name="password" placeholder="Password" type="password" required>
+    <label><input type="checkbox" name="is_admin"> Is admin</label>
+    <button class="btn btn-buy" type="submit">Create user</button>
+  </form>
+
+  <h3>Existing Users</h3>
+  <table class="cart-table">
+    <thead><tr><th>ID</th><th>Username</th><th>Is Admin</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ 'Yes' if u.is_admin else 'No' }}</td>
+        <td>
+          <a href="{{ url_for('admin.edit_user', user_id=u.id) }}" class="btn">Edit</a>
+          <a href="{{ url_for('admin.delete_user', user_id=u.id) }}" class="btn btn-dark">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

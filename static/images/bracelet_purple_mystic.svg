@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#581c87;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="shinePurple" cx="30%" cy="30%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#faf5ff"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="200" cy="240" rx="140" ry="20" fill="#000" opacity="0.1"/>
+  
+  <!-- Main bracelet -->
+  <ellipse cx="200" cy="150" rx="120" ry="100" fill="url(#purpleGrad)" stroke="#4c1d95" stroke-width="3"/>
+  
+  <!-- Inner hole -->
+  <ellipse cx="200" cy="150" rx="80" ry="65" fill="#faf5ff" stroke="#4c1d95" stroke-width="2"/>
+  
+  <!-- Mystic stars -->
+  <path d="M 200,100 L 205,115 L 220,115 L 208,125 L 213,140 L 200,130 L 187,140 L 192,125 L 180,115 L 195,115 Z" fill="#c084fc" stroke="#581c87" stroke-width="1.5"/>
+  
+  <!-- Crystal beads -->
+  <polygon points="150,130 145,140 155,140" fill="#d8b4fe" stroke="#581c87" stroke-width="1.5"/>
+  <polygon points="250,130 245,140 255,140" fill="#d8b4fe" stroke="#581c87" stroke-width="1.5"/>
+  <polygon points="180,180 175,190 185,190" fill="#d8b4fe" stroke="#581c87" stroke-width="1.5"/>
+  <polygon points="220,180 215,190 225,190" fill="#d8b4fe" stroke="#581c87" stroke-width="1.5"/>
+  
+  <!-- Shine -->
+  <ellipse cx="170" cy="130" rx="50" ry="40" fill="url(#shinePurple)" opacity="0.5"/>
+  
+  <!-- Label -->
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="16" fill="#581c87" text-anchor="middle" font-weight="bold">Mystic Purple</text>
+</svg>

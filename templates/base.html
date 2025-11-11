@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ColorWeave{% endblock %}</title>
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    {% block header %}
+    <header class="shadow-sm">
+        {% set _ep = request.endpoint or '' %}
+        {% if 'main.login' in _ep or 'main.register' in _ep %}
+        <!-- Minimal navbar for auth pages -->
+                <nav class="navbar navbar-dark bg-dark">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand fw-bold" href="/">ColorWeave</a>
+                <div class="d-flex align-items-center gap-3">
+                                            <button id="themeToggle" class="btn btn-outline btn-outline-light btn-sm" type="button" aria-label="Toggle theme" data-mode="light">
+                                                    <span class="icon" data-icon>�</span><span class="label d-none d-md-inline" data-label>Light</span>
+                                            </button>
+                    {% if current_user.is_authenticated %}
+                      <span class="text-light small">Hi, {{ current_user.username }}</span>
+                      <a class="btn btn-sm btn-outline-light" href="/logout">Logout</a>
+                    {% else %}
+                      <a class="btn btn-sm btn-primary" href="/login">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <!-- Full navbar for main site -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="/">ColorWeave</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item me-2">
+                                <button id="themeToggle" class="btn btn-outline btn-outline-light btn-sm" type="button" aria-label="Toggle theme" data-mode="light">
+                                    <span class="icon" data-icon>�</span><span class="label d-none d-md-inline" data-label>Light</span>
+                                </button>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/cart" aria-label="Cart">🛒 Cart</a></li>
+                        {% if current_user.is_authenticated %}
+                                                <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                {% if current_user.avatar %}
+                                                                    <img src="{{ url_for('static', filename='images/avatars/' + current_user.avatar) }}" alt="avatar" class="rounded-circle" style="width:28px;height:28px;object-fit:cover;border:2px solid rgba(255,255,255,.3);">
+                                                                {% else %}
+                                                                    <img src="{{ url_for('static', filename='images/avatars/avatar_placeholder.svg') }}" alt="avatar" class="rounded-circle" style="width:28px;height:28px;object-fit:cover;border:2px solid rgba(255,255,255,.3);">
+                                                                {% endif %}
+                                                                <span>{{ current_user.username }}</span>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                                                {% if current_user.is_admin %}
+                                                                    <li><a class="dropdown-item" href="/admin">Admin Dashboard</a></li>
+                                                                {% else %}
+                                                                    <li><a class="dropdown-item" href="/admin/login">Admin Login</a></li>
+                                                                {% endif %}
+                                                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                                        </ul>
+                                                </li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                        {% endif %}
+                                                {% if current_user.is_authenticated and current_user.is_admin %}
+                                                    <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                                                {% else %}
+                                                    <li class="nav-item"><a class="nav-link" href="/admin/login">Admin</a></li>
+                                                {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+    </header>
+    {% endblock %}
+    
+    {# Flash messages area (global) #}
+    <div class="flash-wrapper">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer class="footer bg-dark text-light">
+        <div class="container text-center py-4">
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
+                <img src="{{ url_for('static', filename='BSI.png') }}" alt="BSI Logo" class="opacity-75" style="max-width: 90px;">
+                <span class="fw-semibold">ColorWeave</span>
+            </div>
+            <p class="mt-2 mb-0">Handcrafted accessories with AI‑powered shopping experience</p>
+            <p class="small text-secondary mb-0">&copy; {{ 2025 }} ColorWeave. All rights reserved.</p>
+        </div>
+    </footer>
+    {% endblock %}
+    <!-- Bootstrap JS bundle (popper + bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- Minimal AI Assistant Widget -->
+        <div class="ai-assistant-panel" id="aiPanel" aria-live="polite">
+            <div class="ai-assistant-header">🧠 ColorWeave Assistant</div>
+            <div class="ai-assistant-body" id="aiMessages">
+                <div class="ai-msg assistant">Hai! Tanyakan apa pun tentang produk kami. Contoh: "gelang biru untuk hadiah".</div>
+            </div>
+            <form class="ai-assistant-input" id="aiForm">
+                <input id="aiInput" type="text" class="form-control" placeholder="Tulis pertanyaan..." autocomplete="off"/>
+                <button class="btn btn-primary" type="submit">Kirim</button>
+            </form>
+        </div>
+            <button class="btn btn-primary ai-assistant-btn" id="aiToggle" aria-label="Open assistant">💬</button>
+            <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

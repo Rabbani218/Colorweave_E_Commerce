@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - ColorWeave{% endblock %}
+
+{% block content %}
+<header class="header contact-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We’re Here to Help You 😊</p>
+    </div>
+</header>
+<main class="main-content">
+    <section class="contact-section">
+        <div class="container">
+            <h2>📞 Get in Touch</h2>
+            <p>Jika ada yang ingin ditanyakan soal produk-produk kami, bisa hubungi kami melalui detail berikut. Saran dan kritik Anda sangat penting bagi kemajuan bisnis kami. 🙏</p>
+
+            <!-- Informasi Kontak -->
+            <div class="contact-info">
+                <div class="info-item">
+                    <h3>📱 Hubungi Kita</h3>
+                    <p>Hubungi Si Lukas, dia pasti tahu permasalahannya! 😊</p>
+                    <a href="https://wa.me/+6285253613537" target="_blank">WhatsApp Me 💬</a>
+                </div>
+                <div class="info-item">
+                    <h3>📍 Location</h3>
+                    <p>JRRM+2VG, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16424, Indonesia</p>
+                    <a href="https://maps.app.goo.gl/Vt5kwFsna5mQPAfs8" class="btn btn-view-map">📍 View on Google Maps</a>
+                </div>
+            </div>
+
+           <!-- Bagian untuk menampilkan flash message -->
+           {% with messages = get_flashed_messages(with_categories=true) %}
+           {% if messages %}
+               <div class="flash-messages">
+                   {% for category, message in messages %}
+                       {% if category == 'contact_success' %}
+                           <div class="alert {{ category }}">
+                               {{ message }}
+                           </div>
+                       {% endif %}
+                   {% endfor %}
+               </div>
+           {% endif %}
+           {% endwith %}
+
+            <!-- Formulir Kontak -->
+            <h2>💬 Leave a Message</h2>
+            <form id="contact-form" action="/submit_contact" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+
+        </div>
+    </section>
+</main>
+{% endblock %}

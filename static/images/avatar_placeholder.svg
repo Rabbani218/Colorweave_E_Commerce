@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Avatar placeholder">
+  <defs>
+    <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#3b231b"/>
+      <stop offset="100%" stop-color="#c9a28f"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#grad)"/>
+  <circle cx="200" cy="150" r="90" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.35)" stroke-width="4"/>
+  <path d="M90 330c20-70 80-90 110-90s90 20 110 90" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="360" font-size="42" font-family="Inter, Arial, sans-serif" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-weight="600">CW</text>
+</svg>

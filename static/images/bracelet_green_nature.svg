@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#065f46;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="shineGreen" cx="30%" cy="30%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#ecfdf5"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="200" cy="240" rx="140" ry="20" fill="#000" opacity="0.1"/>
+  
+  <!-- Main bracelet -->
+  <ellipse cx="200" cy="150" rx="120" ry="100" fill="url(#greenGrad)" stroke="#064e3b" stroke-width="3"/>
+  
+  <!-- Inner hole -->
+  <ellipse cx="200" cy="150" rx="80" ry="65" fill="#ecfdf5" stroke="#064e3b" stroke-width="2"/>
+  
+  <!-- Leaf patterns -->
+  <path d="M 160,120 Q 155,110 160,100 Q 165,110 160,120 Z" fill="#34d399" stroke="#065f46" stroke-width="1"/>
+  <path d="M 240,120 Q 235,110 240,100 Q 245,110 240,120 Z" fill="#34d399" stroke="#065f46" stroke-width="1"/>
+  <path d="M 200,90 Q 195,80 200,70 Q 205,80 200,90 Z" fill="#34d399" stroke="#065f46" stroke-width="1"/>
+  
+  <!-- Nature beads -->
+  <circle cx="180" cy="110" r="10" fill="#6ee7b7" stroke="#065f46" stroke-width="2"/>
+  <circle cx="220" cy="110" r="10" fill="#6ee7b7" stroke="#065f46" stroke-width="2"/>
+  <circle cx="200" cy="190" r="10" fill="#6ee7b7" stroke="#065f46" stroke-width="2"/>
+  <circle cx="160" cy="150" r="10" fill="#6ee7b7" stroke="#065f46" stroke-width="2"/>
+  <circle cx="240" cy="150" r="10" fill="#6ee7b7" stroke="#065f46" stroke-width="2"/>
+  
+  <!-- Shine -->
+  <ellipse cx="170" cy="130" rx="50" ry="40" fill="url(#shineGreen)" opacity="0.6"/>
+  
+  <!-- Label -->
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="16" fill="#065f46" text-anchor="middle" font-weight="bold">Nature Green</text>
+</svg>

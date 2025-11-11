@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Minimalist ColorWeave Bracelet">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9fbff"/>
+      <stop offset="100%" stop-color="#e9f1fd"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#5063d9"/>
+      <stop offset="50%" stop-color="#8aa6ff"/>
+      <stop offset="100%" stop-color="#4857b8"/>
+    </linearGradient>
+    <filter id="blurGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/>
+      <feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0.2  0 0 0 0 0.6  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg3)"/>
+  <!-- subtle gradient circles -->
+  <g opacity="0.45">
+    <circle cx="140" cy="120" r="90" fill="#e2e9f7"/>
+    <circle cx="680" cy="500" r="130" fill="#eef3fb"/>
+  </g>
+  <!-- Minimalist double line bracelet -->
+  <g transform="translate(400 300)">
+    <path d="M-200 0 A200 200 0 0 1 200 0" fill="none" stroke="url(#lineGrad)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M-180 0 A180 180 0 0 1 180 0" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" filter="url(#blurGlow)"/>
+  </g>
+  <!-- Center accent -->
+  <circle cx="400" cy="300" r="34" fill="url(#lineGrad)" stroke="#fff" stroke-width="4"/>
+  <circle cx="400" cy="300" r="14" fill="#ffffff" opacity="0.6"/>
+</svg>

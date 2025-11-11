@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit User - ColorWeave{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:80px;max-width:720px;">
+  <h2>Edit User</h2>
+  <form method="POST" action="{{ url_for('admin.edit_user', user_id=user.id) }}">
+    <input name="username" value="{{ user.username }}" placeholder="Username" required>
+    <label>New password (leave blank to keep)</label>
+    <input name="password" placeholder="New password" type="password">
+    <label><input type="checkbox" name="is_admin" {% if user.is_admin %}checked{% endif %}> Is admin</label>
+    <button class="btn btn-buy" type="submit">Save</button>
+  <a href="{{ url_for('admin.index') }}" class="btn">Cancel</a>
+  </form>
+</div>
+{% endblock %}
