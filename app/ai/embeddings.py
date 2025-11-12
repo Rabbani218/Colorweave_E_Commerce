@@ -191,14 +191,17 @@ class EmbeddingIndexer:
             idx = self.ids.index(product_id)
         except ValueError:
             return []
-        # Normalize single vector slice for fallback wrapper
-        if hasattr(self.embeddings, 'data'):
+        # Normalize slice for whichever backend produced embeddings
+        if hasattr(self.embeddings, 'data') and not hasattr(self.embeddings, 'shape'):
+            # Fallback array wrapper exposes `.data`; build a tiny adapter for kneighbors
             single = [self.embeddings.data[idx]]
             class _One:
                 data = single
             vec = _One()
         else:
-            vec = self.embeddings[idx:idx+1]
+            vec = self.embeddings[idx:idx + 1]
+            if isinstance(vec, list):  # Warm-cache gives plain lists; ensure 2D structure
+                vec = vec if vec and isinstance(vec[0], (list, tuple)) else [vec]
         dists, inds = self.nn.kneighbors(vec, n_neighbors=min(k + 1, len(self.ids)))
         results = []
         for d, i in zip(dists[0], inds[0]):
